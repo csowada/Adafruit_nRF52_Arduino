@@ -40,8 +40,9 @@
 #include <stdio.h>
 
 #include "nrf_sdm.h"
+#ifdef SOFTDEVICE
 #include "nrf52/nrf_mbr.h"
-
+#endif
 
 /******************************************************************************/
 /*!
@@ -73,8 +74,13 @@ const char* getBootloaderVersion(void)
   // Skip if already created
   if ( fw_str[0] == 0 )
   {
+#ifdef SOFTDEVICE
     uint32_t const sd_id      = SD_ID_GET(MBR_SIZE);
     uint32_t const sd_version = SD_VERSION_GET(MBR_SIZE);
+#else
+    uint32_t const sd_id      = 0;
+    uint32_t const sd_version = 0;
+#endif
 
     uint32_t const ver1 = sd_version / 1000000;
     uint32_t const ver2 = (sd_version % 1000000)/1000;

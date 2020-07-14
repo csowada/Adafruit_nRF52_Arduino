@@ -21,7 +21,7 @@
 #include "nrf.h"
 #include "nrf_nvic.h"
 
-nrf_nvic_state_t nrf_nvic_state;
+//nrf_nvic_state_t nrf_nvic_state;
 
 #define DFU_MAGIC_SERIAL_ONLY_RESET   0x4e
 #define DFU_MAGIC_UF2_RESET           0x57
@@ -92,7 +92,7 @@ void waitForEvent(void)
   (void) __get_FPSCR();
   NVIC_ClearPendingIRQ(FPU_IRQn);
 #endif
-
+#ifdef SOFTDEVICE
   uint8_t sd_en = 0;
   (void) sd_softdevice_is_enabled(&sd_en);
 
@@ -101,11 +101,14 @@ void waitForEvent(void)
     (void) sd_app_evt_wait();
   }else
   {
+#endif
     // SoftDevice is not enabled.
     __WFE();
     __SEV(); // Clear Event Register.
     __WFE();
+#ifdef SOFTDEVICE
   }
+#endif
 }
 
 
@@ -125,7 +128,7 @@ void systemOff(uint32_t pin, uint8_t wake_logic)
   {
     nrf_gpio_cfg_sense_input(pin, NRF_GPIO_PIN_PULLUP, NRF_GPIO_PIN_SENSE_LOW);
   }
-
+#ifdef SOFTDEVICE
   uint8_t sd_en;
   (void) sd_softdevice_is_enabled(&sd_en);
 
@@ -135,6 +138,9 @@ void systemOff(uint32_t pin, uint8_t wake_logic)
     sd_power_system_off();
   }else
   {
+#endif
     NRF_POWER->SYSTEMOFF = 1;
+#ifdef SOFTDEVICE
   }
+#endif
 }
