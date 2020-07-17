@@ -45,27 +45,44 @@ extern "C" {
  *        the needs of the host environment into which @em nrfx is integrated.
  */
 
-// Uncomment this line to use the standard MDK way of binding IRQ handlers
-// at linking time.
+#include <legacy/apply_old_config.h>
+
 #include <soc/nrfx_irqs.h>
 
 //------------------------------------------------------------------------------
 
+#include <nrf_assert.h>
 /**
  * @brief Macro for placing a runtime assertion.
  *
  * @param expression  Expression to evaluate.
  */
-#define NRFX_ASSERT(expression)
+#define NRFX_ASSERT(expression)     ASSERT(expression)
 
+#include <app_util.h>
 /**
  * @brief Macro for placing a compile time assertion.
  *
  * @param expression  Expression to evaluate.
  */
-#define NRFX_STATIC_ASSERT(expression)
+#define NRFX_STATIC_ASSERT(expression)  STATIC_ASSERT(expression)
 
 //------------------------------------------------------------------------------
+
+#ifdef NRF51
+#ifdef SOFTDEVICE_PRESENT
+#define INTERRUPT_PRIORITY_IS_VALID(pri) (((pri) == 1) || ((pri) == 3))
+#else
+#define INTERRUPT_PRIORITY_IS_VALID(pri) ((pri) < 4)
+#endif //SOFTDEVICE_PRESENT
+#else
+#ifdef SOFTDEVICE_PRESENT
+#define INTERRUPT_PRIORITY_IS_VALID(pri) ((((pri) > 1) && ((pri) < 4)) || \
+                                          (((pri) > 4) && ((pri) < 8)))
+#else
+#define INTERRUPT_PRIORITY_IS_VALID(pri) ((pri) < 8)
+#endif //SOFTDEVICE_PRESENT
+#endif //NRF52
 
 /**
  * @brief Macro for setting the priority of a specific IRQ.
@@ -152,6 +169,8 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
     return (NVIC_GetPendingIRQ(irq_number) == 1);
 }
 
+#include <nordic_common.h>
+#include <app_util_platform.h>
 /**
  * @brief Macro for entering into a critical section.
  */
@@ -190,8 +209,14 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
  */
 #define NRFX_CUSTOM_ERROR_CODES 0
 
+// typedef ret_code_t nrfx_err_t;
+
+typedef uint32_t ret_code_t;
+// typedef ret_code_t nrfx_err_t;
+
 //------------------------------------------------------------------------------
 
+#include <sdk_resources.h>
 /**
  * @brief Bitmask defining PPI channels reserved to be used outside of nrfx.
  */
