@@ -181,7 +181,7 @@ standard names - or at least those used in the unmodified vector table. */
  * basing on the settings above
  */
 #define configSYSTICK_CLOCK_HZ  ( 32768UL )
-#define xPortSysTickHandler     RTC1_IRQHandler
+#define xPortSysTickHandler     RTC0_IRQHandler
 
 /** Implementation note:  Use this with caution and set this to 1 ONLY for debugging
  * ----------------------------------------------------------

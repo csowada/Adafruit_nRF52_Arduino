@@ -76,9 +76,9 @@ typedef unsigned long UBaseType_t;
 #define portBYTE_ALIGNMENT          8
 
 /* RTC register */
-#define portNRF_RTC_REG        NRF_RTC1
+#define portNRF_RTC_REG        NRF_RTC0
 /* IRQn used by the selected RTC */
-#define portNRF_RTC_IRQn       RTC1_IRQn
+#define portNRF_RTC_IRQn       RTC0_IRQn
 /* Constants required to manipulate the NVIC. */
 #define portNRF_RTC_PRESCALER  ( (uint32_t) (ROUNDED_DIV(configSYSTICK_CLOCK_HZ, configTICK_RATE_HZ) - 1) )
 /* Maximum RTC ticks */
