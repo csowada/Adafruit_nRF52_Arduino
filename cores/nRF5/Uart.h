@@ -97,13 +97,13 @@ class Uart : public HardwareSerial
   #define SERIAL_PORT_MONITOR         Serial
   #define SERIAL_PORT_USBVIRTUAL      Serial
 
-  #define SERIAL_PORT_HARDWARE        Serial1
-  #define SERIAL_PORT_HARDWARE_OPEN   Serial1
+  // #define SERIAL_PORT_HARDWARE        Serial1
+  // #define SERIAL_PORT_HARDWARE_OPEN   Serial1
 
 #endif
 
-extern Uart SERIAL_PORT_HARDWARE;
+// extern Uart SERIAL_PORT_HARDWARE;
 
-#if defined(PIN_SERIAL2_RX) && defined(PIN_SERIAL2_TX)
-extern Uart Serial2;
-#endif
+// #if defined(PIN_SERIAL2_RX) && defined(PIN_SERIAL2_TX)
+// extern Uart Serial2;
+// #endif

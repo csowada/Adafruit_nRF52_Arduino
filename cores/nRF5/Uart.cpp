@@ -26,13 +26,13 @@ void serialEventRun(void)
 {
   if (serialEvent && Serial.available() ) serialEvent();
 
-#if defined(PIN_SERIAL1_RX) && defined(PIN_SERIAL1_TX)
-  if (serialEvent1 && Serial1.available() ) serialEvent1();
-#endif
+// #if defined(PIN_SERIAL1_RX) && defined(PIN_SERIAL1_TX)
+//   if (serialEvent1 && Serial1.available() ) serialEvent1();
+// #endif
 
-#if defined(PIN_SERIAL2_RX) && defined(PIN_SERIAL2_TX)
-  if (serialEvent2 && Serial2.available() ) serialEvent2();
-#endif
+// #if defined(PIN_SERIAL2_RX) && defined(PIN_SERIAL2_TX)
+//   if (serialEvent2 && Serial2.available() ) serialEvent2();
+// #endif
 }
 
 Uart::Uart(NRF_UARTE_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pinTX)
@@ -244,27 +244,27 @@ size_t Uart::write(const uint8_t *buffer, size_t size)
 #ifdef NRF52832_XXAA
   Uart Serial( NRF_UARTE0, UARTE0_UART0_IRQn, PIN_SERIAL_RX, PIN_SERIAL_TX );
 #else
-  Uart Serial1( NRF_UARTE0, UARTE0_UART0_IRQn, PIN_SERIAL1_RX, PIN_SERIAL1_TX );
+  // Uart Serial1( NRF_UARTE0, UARTE0_UART0_IRQn, PIN_SERIAL1_RX, PIN_SERIAL1_TX );
 #endif
 
-extern "C"
-{
-  void UARTE0_UART0_IRQHandler()
-  {
-    SERIAL_PORT_HARDWARE.IrqHandler();
-  }
-}
+// extern "C"
+// {
+//   void UARTE0_UART0_IRQHandler()
+//   {
+//     SERIAL_PORT_HARDWARE.IrqHandler();
+//   }
+// }
 
 //------------- Serial2 -------------//
-#if defined(PIN_SERIAL2_RX) && defined(PIN_SERIAL2_TX)
-Uart Serial2( NRF_UARTE1, UARTE1_IRQn, PIN_SERIAL2_RX, PIN_SERIAL2_TX );
+// #if defined(PIN_SERIAL2_RX) && defined(PIN_SERIAL2_TX)
+// Uart Serial2( NRF_UARTE1, UARTE1_IRQn, PIN_SERIAL2_RX, PIN_SERIAL2_TX );
 
-extern "C"
-{
-  void UARTE1_IRQHandler()
-  {
-    Serial2.IrqHandler();
-  }
-}
-#endif
+// extern "C"
+// {
+//   void UARTE1_IRQHandler()
+//   {
+//     Serial2.IrqHandler();
+//   }
+// }
+// #endif
 

@@ -147,7 +147,7 @@ void dbgMemInfo(void)
 void dbgPrintVersion(void)
 {
   PRINTF("\n");
-  PRINTF("BSP Library : " ARDUINO_BSP_VERSION "\n");
+  // PRINTF("BSP Library : " ARDUINO_BSP_VERSION "\n");
   PRINTF("Bootloader  : %s\n", getBootloaderVersion());
   PRINTF("Serial No   : %s\n", getMcuUniqueID());
   PRINTF("\n");
