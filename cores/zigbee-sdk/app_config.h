@@ -1,7 +1,10 @@
 #ifndef APP_CONFIG_H
 #define APP_CONFIG_H
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fix-prj
 //==========================================================
 // <o> APP_BULB_USE_WS2812_LED_CHAIN - Configures the application to use the WS2812 LED chain as bulb (for example, the Adafruit NeoPixel Shield (for Arduino)). 
 #ifndef APP_BULB_USE_WS2812_LED_CHAIN
@@ -10,6 +13,7 @@
 
 // </h> 
 //==========================================================
+<<<<<<< HEAD
 
 // <h> zigbee_stack - ZBOSS Zigbee stack
 
@@ -19,15 +23,32 @@
 
 // <i> 802.15.4 channel used by Zigbee. Defaults to 16.
 
+=======
+
+// <h> zigbee_stack - ZBOSS Zigbee stack
+
+//==========================================================
+// <o> ZIGBEE_CHANNEL - 802.15.4 channel used by Zigbee  <11-26> 
+
+
+// <i> 802.15.4 channel used by Zigbee. Defaults to 16.
+
+>>>>>>> fix-prj
 #ifndef ZIGBEE_CHANNEL
 #define ZIGBEE_CHANNEL 11
 #endif
 
 // <o> ZIGBEE_TRACE_LEVEL - Trace level of Zigbee stack logs.  <0-4> 
 
+<<<<<<< HEAD
 
 // <i> Trace level of Zigbee stack binary logs. Possible values: 0 - disable, 1 - error, 2 - warning, 3 - info, 4 - debug. Disabled by default.
 
+=======
+
+// <i> Trace level of Zigbee stack binary logs. Possible values: 0 - disable, 1 - error, 2 - warning, 3 - info, 4 - debug. Disabled by default.
+
+>>>>>>> fix-prj
 #ifndef ZIGBEE_TRACE_LEVEL
 #define ZIGBEE_TRACE_LEVEL 3
 #endif
@@ -50,6 +71,10 @@
 // <121634816=> 460800 baud 
 // <251658240=> 921600 baud 
 // <268435456=> 1000000 baud 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fix-prj
 #ifndef NRF_LOG_BACKEND_UART_BAUDRATE
 #define NRF_LOG_BACKEND_UART_BAUDRATE 30801920
 #endif
@@ -85,5 +110,8 @@
 // #define NRFX_UART_ENABLED 1
 // #define NRFX_UARTE_ENABLED 1
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fix-prj
 #endif

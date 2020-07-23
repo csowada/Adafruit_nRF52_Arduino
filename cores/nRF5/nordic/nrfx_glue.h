@@ -174,12 +174,12 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
 /**
  * @brief Macro for entering into a critical section.
  */
-#define NRFX_CRITICAL_SECTION_ENTER()
+#define NRFX_CRITICAL_SECTION_ENTER()   CRITICAL_REGION_ENTER()
 
 /**
  * @brief Macro for exiting from a critical section.
  */
-#define NRFX_CRITICAL_SECTION_EXIT()
+#define NRFX_CRITICAL_SECTION_EXIT()    CRITICAL_REGION_EXIT()
 
 //------------------------------------------------------------------------------
 
@@ -191,15 +191,82 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
  */
 #define NRFX_DELAY_DWT_BASED    0
 
-/**
- * @brief Macro for delaying the code execution for at least the specified time.
- *
- * @param us_time Number of microseconds to wait.
- */
 #include <soc/nrfx_coredep.h>
-#define NRFX_DELAY_US(us_time)    nrfx_coredep_delay_us(us_time)
+
+#define NRFX_DELAY_US(us_time) nrfx_coredep_delay_us(us_time)
 
 //------------------------------------------------------------------------------
+
+#include <soc/nrfx_atomic.h>
+
+/**
+ * @brief Atomic 32 bit unsigned type.
+ */
+#define nrfx_atomic_t               nrfx_atomic_u32_t
+
+/**
+ * @brief Stores value to an atomic object and returns previously stored value.
+ *
+ * @param[in] p_data  Atomic memory pointer.
+ * @param[in] value   Value to store.
+ *
+ * @return Old value stored into atomic object.
+ */
+#define NRFX_ATOMIC_FETCH_STORE(p_data, value) nrfx_atomic_u32_fetch_store(p_data, value)
+
+/**
+ * @brief Performs logical OR operation on an atomic object and returns previously stored value.
+ *
+ * @param[in] p_data  Atomic memory pointer.
+ * @param[in] value   Value of second operand of OR operation.
+ *
+ * @return Old value stored into atomic object.
+ */
+#define NRFX_ATOMIC_FETCH_OR(p_data, value)   nrfx_atomic_u32_fetch_or(p_data, value)
+
+/**
+ * @brief Performs logical AND operation on an atomic object and returns previously stored value.
+ *
+ * @param[in] p_data  Atomic memory pointer.
+ * @param[in] value   Value of second operand of AND operation.
+ *
+ * @return Old value stored into atomic object.
+ */
+#define NRFX_ATOMIC_FETCH_AND(p_data, value)   nrfx_atomic_u32_fetch_and(p_data, value)
+
+/**
+ * @brief Performs logical XOR operation on an atomic object and returns previously stored value.
+ *
+ * @param[in] p_data  Atomic memory pointer.
+ * @param[in] value   Value of second operand of XOR operation.
+ *
+ * @return Old value stored into atomic object.
+ */
+#define NRFX_ATOMIC_FETCH_XOR(p_data, value)   nrfx_atomic_u32_fetch_xor(p_data, value)
+
+/**
+ * @brief Performs logical ADD operation on an atomic object and returns previously stored value.
+ *
+ * @param[in] p_data  Atomic memory pointer.
+ * @param[in] value   Value of second operand of ADD operation.
+ *
+ * @return Old value stored into atomic object.
+ */
+#define NRFX_ATOMIC_FETCH_ADD(p_data, value)   nrfx_atomic_u32_fetch_add(p_data, value)
+
+/**
+ * @brief Performs logical SUB operation on an atomic object and returns previously stored value.
+ *
+ * @param[in] p_data  Atomic memory pointer.
+ * @param[in] value   Value of second operand of SUB operation.
+ *
+ * @return Old value stored into atomic object.
+ */
+#define NRFX_ATOMIC_FETCH_SUB(p_data, value)   nrfx_atomic_u32_fetch_sub(p_data, value)
+
+//------------------------------------------------------------------------------
+#ifndef NRFX_CUSTOM_ERROR_CODES
+
 #include <sdk_errors.h>
 /**
  * @brief When set to a non-zero value, this macro specifies that the
@@ -207,8 +274,29 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
  *        in a customized way and the default definitions from @c <nrfx_error.h>
  *        should not be used.
  */
-#define NRFX_CUSTOM_ERROR_CODES 0
+#define NRFX_CUSTOM_ERROR_CODES 1
 
+typedef ret_code_t nrfx_err_t;
+
+#define NRFX_SUCCESS                    NRF_SUCCESS
+#define NRFX_ERROR_INTERNAL             NRF_ERROR_INTERNAL
+#define NRFX_ERROR_NO_MEM               NRF_ERROR_NO_MEM
+#define NRFX_ERROR_NOT_SUPPORTED        NRF_ERROR_NOT_SUPPORTED
+#define NRFX_ERROR_INVALID_PARAM        NRF_ERROR_INVALID_PARAM
+#define NRFX_ERROR_INVALID_STATE        NRF_ERROR_INVALID_STATE
+#define NRFX_ERROR_INVALID_LENGTH       NRF_ERROR_INVALID_LENGTH
+#define NRFX_ERROR_TIMEOUT              NRF_ERROR_TIMEOUT
+#define NRFX_ERROR_FORBIDDEN            NRF_ERROR_FORBIDDEN
+#define NRFX_ERROR_NULL                 NRF_ERROR_NULL
+#define NRFX_ERROR_INVALID_ADDR         NRF_ERROR_INVALID_ADDR
+#define NRFX_ERROR_BUSY                 NRF_ERROR_BUSY
+#define NRFX_ERROR_ALREADY_INITIALIZED  NRF_ERROR_MODULE_ALREADY_INITIALIZED
+
+#define NRFX_ERROR_DRV_TWI_ERR_OVERRUN  NRF_ERROR_DRV_TWI_ERR_OVERRUN
+#define NRFX_ERROR_DRV_TWI_ERR_ANACK    NRF_ERROR_DRV_TWI_ERR_ANACK
+#define NRFX_ERROR_DRV_TWI_ERR_DNACK    NRF_ERROR_DRV_TWI_ERR_DNACK
+
+#endif // NRFX_CUSTOM_ERROR_CODES
 //------------------------------------------------------------------------------
 
 #include <sdk_resources.h>
