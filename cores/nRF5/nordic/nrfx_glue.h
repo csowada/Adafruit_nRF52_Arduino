@@ -200,7 +200,7 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
 #define NRFX_DELAY_US(us_time)    nrfx_coredep_delay_us(us_time)
 
 //------------------------------------------------------------------------------
-
+#include <sdk_errors.h>
 /**
  * @brief When set to a non-zero value, this macro specifies that the
  *        @ref nrfx_error_codes and the @ref nrfx_err_t type itself are defined
@@ -209,33 +209,28 @@ static inline bool _NRFX_IRQ_IS_PENDING(IRQn_Type irq_number)
  */
 #define NRFX_CUSTOM_ERROR_CODES 0
 
-// typedef ret_code_t nrfx_err_t;
-
-typedef uint32_t ret_code_t;
-// typedef ret_code_t nrfx_err_t;
-
 //------------------------------------------------------------------------------
 
 #include <sdk_resources.h>
 /**
  * @brief Bitmask defining PPI channels reserved to be used outside of nrfx.
  */
-#define NRFX_PPI_CHANNELS_USED  0
+#define NRFX_PPI_CHANNELS_USED  NRF_PPI_CHANNELS_USED
 
 /**
  * @brief Bitmask defining PPI groups reserved to be used outside of nrfx.
  */
-#define NRFX_PPI_GROUPS_USED    0
+#define NRFX_PPI_GROUPS_USED    NRF_PPI_GROUPS_USED
 
 /**
  * @brief Bitmask defining SWI instances reserved to be used outside of nrfx.
  */
-#define NRFX_SWI_USED           0
+#define NRFX_SWI_USED           NRF_SWI_USED
 
 /**
  * @brief Bitmask defining TIMER instances reserved to be used outside of nrfx.
  */
-#define NRFX_TIMERS_USED        0
+#define NRFX_TIMERS_USED        NRF_TIMERS_USED
 
 /** @} */
 
